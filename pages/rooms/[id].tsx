@@ -32,12 +32,17 @@ export default function RoomDetail({ room }: { room: Room }) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+  params,
+  req,
+}) => {
   const roomId = params?.id;
 
-  const { data } = await axios.get(
-    `${window.location.origin}/api/rooms/${roomId}`
-  );
+  const origin = `${req.headers["x-forwarded-proto"] || "http"}://${
+    req.headers.host
+  }`;
+
+  const { data } = await axios.get(`${origin}/api/rooms/${roomId}`);
 
   if (!data) return { notFound: true };
 
