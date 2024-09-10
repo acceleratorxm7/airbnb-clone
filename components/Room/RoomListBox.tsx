@@ -43,7 +43,7 @@ export const RoomListBox: React.FC = () => {
   useEffect(() => {
     const fetchRooms = async () => {
       const { data } = await axios.get<Room[]>(
-        "http://localhost:3000/api/rooms"
+        `${window.location.origin}/api/rooms`
       );
 
       setRoomList(data);

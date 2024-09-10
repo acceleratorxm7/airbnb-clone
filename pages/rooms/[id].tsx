@@ -35,7 +35,9 @@ export default function RoomDetail({ room }: { room: Room }) {
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
   const roomId = params?.id;
 
-  const { data } = await axios.get(`http://localhost:3000/api/rooms/${roomId}`);
+  const { data } = await axios.get(
+    `${window.location.origin}/api/rooms/${roomId}`
+  );
 
   if (!data) return { notFound: true };
 
